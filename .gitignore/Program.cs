@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace DeclaringConstants    
+namespace DeclaringConstants
 {
     class Program
     {
@@ -18,69 +18,54 @@ namespace DeclaringConstants
 
 
 
-            Console.WriteLine("This program will check, given two numbers, if each corresponding place");
-            Console.WriteLine("in the two numbers (ones, tens, hundreds, ...) sums to the same total.");
-            Console.WriteLine("Enter integer value: ");
-            string number1 = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Enter another integer value with the same number of digits as previously:");
-            string number2 = Convert.ToString(Console.ReadLine());
-            int a = number1.Length;
-            int b = number2.Length;
+            Console.WriteLine("Enter first date the following format:");
+            string dateString = Convert.ToString(Console.ReadLine());
+            //Console.WriteLine("Enter second date:");
+            string dateString2 = Convert.ToString(Console.ReadLine());
+
+            //string span = TimeSpan.Parse(dateValue);
+            Date(dateString, dateString2);
+
+            Console.ReadLine();
+
+
+          
             
-            if (a == b)
-            {
-                Math(number1, number2);
-            }
-
-            else
-            { Console.WriteLine("The same number of digits, please."); }
-
-            Console.ReadKey();
+         
         }
 
-        static void Math(string number1, string number2)
+        static void Date(string dateInput, string dateInput2)
         {
-            int a = number1.Length;
-            int length = a - 1;
-            int num = a;
-            //string myString = "";
-            int combined = 0;
-            int letter = 0;
+            //string dateString;
+            //string dateString2 = "";
+            DateTime dateValue;
+            DateTime dateValue2;
+            DateTime ds;
+            DateTime ds2;
 
-            while (num > 0)
+
+            if (DateTime.TryParse(dateInput, out dateValue))
             {
-                letter = Int32.Parse(number1.Substring(length,1));
-                //Console.WriteLine(letter);
-                int letter2 = Int32.Parse(number2.Substring(length,1));
-                combined = combined + letter + letter2;
+                Console.WriteLine("Converted '{0}' to {1} ({2}).", dateInput, dateValue, dateValue.Kind);
 
-                Console.WriteLine(combined);
-
-                if (combined == (letter + letter2))
-                {
-                    Console.WriteLine("Equal");
-                }
-
-                else
-                {
-                    Console.WriteLine("False");
-                }
-                //myString = combined.ToString();
-                
-                length--;
-                num--;
-            }
-            Console.WriteLine(combined);
-            Console.WriteLine(letter);
-            if (combined / (a * 2) == letter)
-            {
-                Console.WriteLine("True");
+                ds = dateValue;
             }
 
             else
+                Console.WriteLine("Unable to parse '{0}'.", dateInput);
+
+            if (DateTime.TryParse(dateInput2, out dateValue2))
             {
-                Console.WriteLine("False");
+                Console.WriteLine("Converted '{0}' to {1} ({2}).", dateInput, dateValue, dateValue.Kind);
+
+                ds2 = dateValue2;
             }
+
+            else
+                Console.WriteLine("Unable to parse '{0}'.", dateInput);
+
+            TimeSpan span = ds -  ds2;
+            Console.WriteLine(span);
 
         }
 
